@@ -3,36 +3,111 @@
 
 using namespace std;
 
-int main() {
-    srand(time(NULL));
+char getUserChoice();
+char getComputerChoice();
+void showChoice(char userChoice, char computerChoice);
+void determineWinner(char userChoice, char computerChoice);
 
-    int num;
-    int guess;
-    int tries = 0;
+int main()
+{
+    char userChoice;
+    char computerChoice;
 
-    num = (rand() % 100) + 1;
+    userChoice = getUserChoice();
+    computerChoice = getComputerChoice();
 
-    cout << "******* Number Guessing Game *******\n" << endl;
-
-    do {
-        
-    cout << "Enter a number between 1 - 100: ";
-    cin >> guess;
-    tries++;
-
-    if(guess < num) {
-        cout << "Too low! Try again.\n";
-    } else if(guess > num) {
-        cout << "Too high! Try again.\n";
-    } else {
-        cout << "Correct! The number is " << num << "\n";
-        cout << "You guessed in " << tries << " attempts \n";
-    }
-
-    } while (guess != num);
-
-    cout << "Thanks for playing the game";
-   
+    cout << "**********Results**********\n";
+    showChoice(userChoice, computerChoice);
+    determineWinner(userChoice, computerChoice);
 
     return 0;
 }
+
+char getUserChoice()
+{
+    char userChoice;
+
+    cout << "Welcome To My Rock Paper Scissors Game\n";
+    cout << "******************************************\n";
+
+    do
+    {
+        cout << "Enter an option.\n";
+        cout << "r - Rock\n";
+        cout << "p - Paper\n";
+        cout << "s - Scissors\n";
+
+        cout << "Your choice: ";
+        cin >> userChoice;
+
+        userChoice = tolower(userChoice);
+
+    } while (userChoice != 'r' && userChoice != 'p' && userChoice != 's');
+
+    return userChoice;
+};
+
+char getComputerChoice()
+{
+    srand(time(0));
+    int randNum = rand() % 3;
+
+    switch (randNum)
+    {
+    case 0:
+        return 'r';
+    case 1:
+        return 'p';
+    case 2:
+        return 's';
+    default:
+        return 'r';
+    }
+};
+
+void showChoice(char userChoice, char computerChoice)
+{
+
+    switch (userChoice)
+    {
+    case 'r':
+        cout << "You chose Rock.\n";
+        break;
+    case 'p':
+        cout << "You chose Paper.\n";
+        break;
+    case 's':
+        cout << "You chose Scissors.\n";
+        break;
+    }
+
+    switch (computerChoice)
+    {
+    case 'r':
+        cout << "Computer chose Rock.\n";
+        break;
+    case 'p':
+        cout << "Computer chose Paper.\n";
+        break;
+    case 's':
+        cout << "Computer chose Scissors.\n";
+        break;
+    }
+};
+void determineWinner(char userChoice, char computerChoice)
+{
+    if (userChoice == computerChoice)
+    {
+        cout << "It's a tie";
+    }
+    else if ((userChoice == 'r' && computerChoice == 's') ||
+             (userChoice == 'p' && computerChoice == 'r') ||
+             (userChoice == 's' && computerChoice == 'p'))
+    {
+        cout << "You win";
+    }
+    else
+    {
+        cout << "COmputer wins";
+    }
+};

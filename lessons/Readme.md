@@ -117,7 +117,7 @@ int main() {
     double temp;
     char unit;
     
-    cout << "************ TEmperature Converter ************\n";
+    cout << "************ Temperature Converter ************\n";
     cout << "F = Fahrenheit\n";
     cout << "C = Celsius\n";
 
@@ -325,3 +325,150 @@ double loadBalance()
 
     return balance;
 }
+
+## Strings concatenating
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+string prompt("Please enter some text!\n"),
+    separator(50, '-');
+
+int main()
+{
+    prompt += "Terminate the input with an empty line. \n ";
+    cout << separator << '\n'
+         << prompt 
+         << separator << '\n';
+
+    string text, inputLine;
+    while (true)
+    {
+        getline(cin, inputLine);
+
+        if(inputLine.empty())
+            break;
+
+        text = inputLine + '\n' + text;
+    }
+
+    cout << separator << '\n'
+        << "Your lines of text in reverse order:\n"
+        << separator << '\n';
+
+    cout << text;
+
+    return 0;
+}
+
+## ROCK PAPER SCISSORS
+#include <iostream>
+#include <string>
+#include <ctime>
+
+using namespace std;
+
+char getUserChoice();
+char getComputerChoice();
+void showChoices(char userChoice, char computerChoice);
+void determineWinner(char userChoice, char computerChoice);
+
+int main()
+{
+    char userChoice;
+    char computerChoice;
+
+    userChoice = getUserChoice();
+    computerChoice = getComputerChoice();
+
+    cout << "\n--- Results ---\n";
+    showChoices(userChoice, computerChoice);
+    determineWinner(userChoice, computerChoice);
+
+    return 0;
+}
+
+char getUserChoice()
+{
+    char userChoice;
+    cout << "Rock Paper Scissors Game\n";
+    do
+    {
+        cout << "Choose your option:\n";
+        cout << "****************************************\n";
+        cout << "Enter:\n";
+        cout << "  r - Rock\n";
+        cout << "  p - Paper\n";
+        cout << "  s - Scissors\n";
+
+        cout << "Choice: ";
+        cin >> userChoice;
+
+        userChoice = tolower(userChoice);
+    } while (userChoice != 'r' && userChoice != 'p' && userChoice != 's');
+    
+
+    return userChoice;
+};
+char getComputerChoice()
+{
+    srand(time(0));                 // Seed the random number generator
+    int randomNum = rand() % 3; // Generate a random number between 0 and 2
+    switch (randomNum)
+    {
+    case 0:
+        return 'r';
+    case 1:
+        return 'p';
+    case 2:
+        return 's';
+    default:
+        return 'r'; // Default case (should not happen)
+    }
+};
+void showChoices(char userChoice, char computerChoice)
+{
+    switch (userChoice)
+    {
+    case 'r':
+        cout << "You chose Rock.\n";
+        break;
+    case 'p':
+        cout << "You chose Paper.\n";
+        break;
+    case 's':
+        cout << "You chose Scissors.\n";
+        break;
+    }
+
+    switch (computerChoice)
+    {
+    case 'r':
+        cout << "Computer chose Rock.\n";
+        break;
+    case 'p':
+        cout << "Computer chose Paper.\n";
+        break;
+    case 's':
+        cout << "Computer chose Scissors.\n";
+        break;
+    }
+};
+void determineWinner(char userChoice, char computerChoice)
+{
+    if (userChoice == computerChoice)
+    {
+        cout << "It's a tie!\n";
+    }
+    else if ((userChoice == 'r' && computerChoice == 's') ||
+             (userChoice == 'p' && computerChoice == 'r') ||
+             (userChoice == 's' && computerChoice == 'p'))
+    {
+        cout << "You win!\n";
+    }
+    else
+    {
+        cout << "Computer wins!\n";
+    }
+};
